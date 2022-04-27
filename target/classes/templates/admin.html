@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>ALL USERS FROM DB BY HIBERNATE</title>
+</head>
+<body>
+<h1> All Users</h1>
+<table class="table table-dark", border="1">
+    <thead>
+    <tr>
+        <th scope="col">Username</th>
+        <th scope="col">Password</th>
+        <th scope="col">Surname</th>
+        <th scope="col">Age</th>
+        <th scope="col">Email</th>
+        <th scope="col">Edit</th>
+        <th scope="col">Delete</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user:${users}">
+        <td th:text="${user.username}"> name</td>
+        <td th:text="${user.password}"> password</td>
+        <td th:text="${user.surname}"> surname</td>
+        <td th:text="${user.age}"> surname</td>
+        <td th:text="${user.email}">email</td>
+        <td> <a th:href="@{/admin/edit/user/{id}D}">Edit</a>
+        <td> <form th:method="GET" th:action="@{/admin/delete/user/{id}(id=${user.id})}">
+            <input type="submit" value="Delete"> </form>
+        </td>
+
+
+    </tr>
+    </tbody>
+</table>
+<a th:href="@{/admin/user/new}">Create new User</a>
+<br/>
+    <form th:action="@{/logout}" method="POST">
+    <input type="submit" value="Sign Out"/>
+</form>
+</body>
+</html>
