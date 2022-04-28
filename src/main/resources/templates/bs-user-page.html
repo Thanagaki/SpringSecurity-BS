@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+          integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <title>User Page</title>
+</head>
+
+<body>
+<header class="navbar navbar-dark bg-dark sticky-top p-0 shadow">
+    <a class="navbar-brand col-md-3" href="#">
+        <b th:text="${user.getEmail()}"></b>
+        <label>with roles:</label>
+        <label th:text="${user.getRolesToString()}"></label>
+    </a>
+    <div class="navbar-nav">
+        <div class="navbar-item">
+            <form  th:action="@{/logout}" th:method="POST">
+                <button type="submit" class="nav-link bg-dark">Logout</button>
+            </form>
+        </div>
+    </div>
+</header>
+<br/>
+<div class="row">
+    <nav class="col-md-2 d-md-block d-none">
+        <ul class="nav flex-column">
+            <div class="dashboard-rules" sec:authorize="hasAuthority('ROLE_ADMIN')">
+                <li class="nav-item">
+                    <a class="nav-link" href="#">
+                        Admin
+                    </a>
+                </li>
+            </div>
+            <li class="nav-item">
+                <a class="nav-link active bg-primary text-white"  href="/user">
+                    User
+                </a>
+            </li>
+        </ul>
+    </nav>
+
+    <div class="col-md-10">
+        <h2>User information-page</h2>
+        <h4>About User</h4>
+        <table class="table table-striped">
+            <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Username</th>
+                <th scope="col">Surname</th>
+                <th scope="col">Age</th>
+                <th scope="col">Email</th>
+                <th scope="col">Role</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td th:text="${user.getId()}"></td>
+                <td th:text="${user.getUsername()}"></td>
+                <td th:text="${user.getSurname()}"></td>
+                <td th:text="${user.getAge()}"></td>
+                <td th:text="${user.getEmail}"></td>
+                <td>
+                    <div th:each="role : ${user.getRoles()}">
+                        <a th:text="${role.getName()}"></a>
+                    </div>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.5.0.js" integrity="sha256-r/AaFHrszJtwpe+tHyNi/XCfMxYpbsRg2Uqn0x3s2zc="
+        crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"
+        integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1"
+        crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"
+        integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM"
+        crossorigin="anonymous"></script>
+</body>
+</html>

@@ -36,23 +36,12 @@ public class AdminController {
         return "bs-admin-page";
     }
 
-    @GetMapping("/user/new")
-    public String addUser(@ModelAttribute("newUser") User emptyUser) {
-        return "addUserByAdmin";
-    }
-
     @PostMapping()
-    public String saveUser(@ModelAttribute("newUser") User user, @PathVariable("newRoles") String [] roles) {
-        //Проверка правильности пароля
+    public String saveUser(@ModelAttribute("user") User user, @RequestParam("newRoles") String [] roles) {
 
-        //Проверка уникальности юзернейма
-        // (без этой проверки просто
-        // перекидывает обратно на "/admin" без
-        //добавления
-
-        if (!userService.saveUser(user)) {
-            return "addUserByAdmin";
-        }
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setRoles(roleService.getByName(roles));
+        userService.saveUser(user);
 
         return "redirect:/admin";
     }
@@ -63,17 +52,12 @@ public class AdminController {
         return "redirect:/admin";
     }
 
-    @GetMapping("/edit/{id}")
-    public String editForm(@PathVariable(value = "id") Long id, Model model) {
-        model.addAttribute("editUser", userService.getById(id));
-        return "editUserByAdmin";
-    }
 
     @PostMapping("/edit/user/{id}")
     // Здесь сетается юзер
     public String update(User user, @RequestParam("userRoles") String[] roles) {
         if(roles != null) {
-            user.setRoles(roleService.getAllRoles().stream().collect(Collectors.toSet()));
+            user.setRoles(roleService.getByName(roles));
         } else{
             user.setRoles(userService.getById(user.getId()).getRoles());
         }

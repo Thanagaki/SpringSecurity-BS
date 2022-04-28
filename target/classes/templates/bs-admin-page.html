@@ -25,6 +25,7 @@
         </div>
     </div>
 </header>
+<br/>
 <div class="container-fluid">
     <div class="row">
         <nav class="col-md-2">
@@ -240,12 +241,12 @@
                                     <tbody>
                                         <tr>
                                             <form th:method="POST" th:action="@{/admin}" th:object="${user}">
-                                                <div class=" col-md-4 text-center m-auto">
+                                                <div class="  col-md-4  text-center m-auto">
                                                     <label for="UserLog"><b>Username</b></label>
                                                     <input type="text" th:field="*{username}" class="form-control" id="UserLog" placeholder="Username"/>
 
                                                     <label for="SurnameLog"><b>Surname</b></label>
-                                                    <input type="text" th:field="*{surname}" class="form-control" id="SurnameLog" placeholder="Suername"/>
+                                                    <input type="text" th:field="*{surname}" class="form-control" id="SurnameLog" placeholder="Surname"/>
 
                                                     <label for="Agee"><b>Age</b></label>
                                                     <input type="text" th:field="*{age}" class="form-control" id="Agee" placeholder="Age"/>
@@ -258,11 +259,10 @@
 
                                                     <label for="Rolees"><b>Role</b></label>
                                                     <select class="form-control" multiple size="2" id="Rolees" name="newRoles" required>
-                                                        <option th:value="ROLE_ADMIN">ROLE_ADMIN</option>
-                                                        <option th:value="ROLE_USER">ROLE_ADMIN</option>
+                                                        <option th:text="ROLE_ADMIN"></option>
+                                                        <option th:text="ROLE_USER"></option>
                                                     </select>
-                                                    <br/>
-                                                    <button type="submit" class="btn btn-success  mx-auto">Add new User</button>
+                                                    <button type="submit" class="btn btn-success  mt-3 ">Add new User</button>
                                                 </div>
                                             </form>
                                         </tr>

@@ -42,13 +42,7 @@ public class UserServiceImpl implements UserService{
         if(userFromDb != null) {
             return false;
         }
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
-        Set<Role> addRole = new HashSet<>();
-        addRole.add(roleDao.findById(2L).orElse(null));
-
-        user.setRoles(addRole);
         userDao.save(user);
-
         return true;
     }
 
