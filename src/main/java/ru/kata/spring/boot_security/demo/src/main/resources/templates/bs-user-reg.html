@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Create user</title>
+</head>
+<body>
+<form th:method="POST" th:action="@{/user/complete/registry}" th:object="${user}">
+    <label for="userName">Username</label>
+    <input type="text" th:field="*{username}" id="userName" placeholder="Username">
+    <br/>
+    <br/>
+    <label for="userLastName">Surname</label>
+    <input type="text" th:field="*{surname}" id="userLastName" placeholder="Surname">
+    <br/>
+    <br/>
+    <label for="userAge">Age</label>
+    <input type="number" th:field="*{age}" id="userAge" placeholder="Age">
+    <br/>
+    <br/>
+    <label for="userEmail">Email</label>
+    <input type="text" th:field="*{email}" id="userEmail" placeholder="Email">
+    <br/>
+    <br/>
+    <label for="userPassword">Password</label>
+    <input type="text" th:field="*{password}" id="userPassword" placeholder="Password">
+    <br/>
+    <br/>
+
+    <br/>
+
+    <label>Roles:
+        <input type="checkbox" name="roleList"
+               th:each="role : ${roleList}"
+               th:text="${role.roleName}"
+               th:value="${role.roleName}"
+               th:field="*{roles}"
+        />
+    </label>
+
+    <input type="submit" value="Create User">
+</form>
+</body>
+</html>
